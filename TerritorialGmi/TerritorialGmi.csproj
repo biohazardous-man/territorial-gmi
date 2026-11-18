@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>FrontlineLogistics.TerritorialGmi</AssemblyName>
+    <GameRoot>$(MSBuildThisFileDirectory)..\..\</GameRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BepInEx" HintPath="$(GameRoot)BepInEx/core/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(GameRoot)BepInEx/core/0Harmony.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UI" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/UnityEngine.UI.dll" Private="false" />
+    <Reference Include="UnityEngine.UIModule" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="UnityEngine.InputLegacyModule" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameRoot)FrontlineLogistics_Data/Managed/Assembly-CSharp-firstpass.dll" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Localization/TerritorialGmi.csv" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="DeployPlugin" AfterTargets="Build" Condition="'$(DeployPlugin)' == 'true'">
+    <MakeDir Directories="$(GameRoot)BepInEx/plugins/TerritorialGmi" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameRoot)BepInEx/plugins/TerritorialGmi" />
+    <MakeDir Directories="$(GameRoot)BepInEx/plugins/TerritorialGmi/Localization" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)Localization/TerritorialGmi.csv" DestinationFolder="$(GameRoot)BepInEx/plugins/TerritorialGmi/Localization" />
+  </Target>
+</Project>
